@@ -15,13 +15,14 @@ func main() {
 		DisableStackAll: true,
 	}))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:8080"},
-		AllowMethods: []string{http.MethodGet, http.MethodPost},
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPatch},
 	}))
 
 	e.GET("/v1/namespaces", dashboard.Namespaces)
 	e.GET("/v1/namespaces/:namespace/deployments", dashboard.Deployments)
 	e.GET("/v1/namespaces/:namespace/deployment/:deployment/pods", dashboard.Pods)
+	e.PATCH("/v1/namespaces/:namespace/deployment/:deployment/arbitrary-rolling-update", dashboard.ArbitraryRollingUpdate)
 	e.GET("/v1/nodes", dashboard.Nodes)
 
 	e.GET("/health", func(c echo.Context) error {

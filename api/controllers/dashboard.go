@@ -23,3 +23,9 @@ func Pods(c echo.Context) error {
 func Nodes(c echo.Context) error {
 	return c.JSON(http.StatusOK, api.GetNodes())
 }
+
+func ArbitraryRollingUpdate(c echo.Context) error {
+	api.ForceDeploymentArbitraryRollingUpdate(c.Param("namespace"), c.Param("deployment"))
+
+	return c.JSON(http.StatusOK, "")
+}

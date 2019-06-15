@@ -17,6 +17,9 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon>
+            <v-icon @click="dialog = true">redo</v-icon>
+          </v-btn>
+          <v-btn icon>
             <v-icon @click="refresh">refresh</v-icon>
           </v-btn>
         </v-toolbar>
@@ -72,12 +75,56 @@
         </v-card>
       </template>
     </Request>
+
+    <v-dialog v-model="isDialogLoading" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Please stand by
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialog" max-width="600">
+      <v-card>
+        <v-card-title class="headline">Arbitrary rolling-update</v-card-title>
+        <v-card-text>
+          This action will try to match the parent deployment specification and trigger a
+          rolling-update by adding the label <pre>LAST_FORCED_ROLLING_UPDATE</pre>
+          <br/><br/>
+          Kubernetes will then launch new pod(s) with a rolling-update strategy.
+          It can be considered as a way to restart without any down time.
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialog = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="arbitraryRollingUpdate"
+          >
+            Proceed
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import Request from './utils/Request.vue';
 import ta from 'time-ago';
+import Request from './utils/Request.vue';
+import request from '../request';
 
 export default {
   components: { Request },
@@ -107,10 +154,24 @@ export default {
     onDataReceived(pods) {
       this.checkForContainerRestart(pods);
     },
+    arbitraryRollingUpdate() {
+      this.dialog = false;
+      this.isDialogLoading = true;
+      request.make('patch', `namespaces/${this.namespace}/deployment/${this.deployment}/arbitrary-rolling-update`).then(() => {
+        setTimeout(() => {
+          this.refresh();
+          this.isDialogLoading = false;
+        }, 1000);
+      }).catch((error) => {
+        console.error(error); // TODO: gui
+      });
+    },
   },
   data() {
     return {
       warningMessage: '',
+      dialog: false,
+      isDialogLoading: false,
     };
   },
 };
