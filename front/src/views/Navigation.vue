@@ -29,7 +29,7 @@
         <template v-slot:activator>
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-title>Namespaces</v-list-tile-title>
+              <v-list-tile-title>Deployments</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>

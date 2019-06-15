@@ -20,11 +20,19 @@ export default {
         if (response.status === 200) {
           this.isLoading = false;
           this.data = response.data;
+          this.$emit('onDataReceived', response.data);
         } else {
           this.isLoading = false;
           console.error('Error', response); // TODO: Implement front error
         }
+      }).catch((error) => {
+        this.isLoading = false;
+        console.error('Error', error); // TODO: Implement front error
       });
+    },
+    refresh() {
+      this.isLoading = true;
+      this.load();
     },
   },
   watch: {

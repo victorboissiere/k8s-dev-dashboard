@@ -17,27 +17,36 @@
             <v-flex
               v-for="node in nodes.data"
               :key="node.name"
-              v-bind="{ [`xs6`]: true }"
+              class="xs6"
             >
               <v-card>
                 <v-card-title>
-                  <v-icon large left>home</v-icon>
+                  <v-icon left>cloud</v-icon>
                   <span class="title font-weight-light">{{ node.name }}</span>
                 </v-card-title>
 
                 <v-card-text>
+                  <h3>Labels</h3>
+                  <v-divider></v-divider><br/>
                   <div v-for="(value, key) in node.labels" :key="`${node.name}-${key}`">
                     {{ key }} : {{ value}}
                   </div>
-                  <br/><br/>
-                  Kernel: {{ node.status.nodeInfo.kernelVersion }}<br/>
-                  containerRuntimeVersion: {{ node.status.nodeInfo.containerRuntimeVersion }}<br/>
-                  kubeletVersion: {{ node.status.nodeInfo.kubeletVersion }}<br/>
-                  OS: {{ node.status.nodeInfo.osImage }}<br/>
                   <br/>
-                  {{ node.status.allocatable.cpu }} CPU // {{ getHumanBytes(node.status.allocatable.memory.replace('Ki', '') * 1000) }} RAM<br/>
-                  Storage: {{ getHumanBytes(node.status.allocatable['ephemeral-storage']) }}<br/>
-                  Pods: {{ node.status.allocatable.pods }}<br/>
+                  <h3>Specifications</h3>
+                  <v-divider></v-divider><br/>
+                  <p>
+                    <b>Kubelet Version:</b> {{ node.status.nodeInfo.kubeletVersion }}<br/>
+                    <b>OS:</b> {{ node.status.nodeInfo.osImage }}<br/>
+                    <b>Kernel:</b> {{ node.status.nodeInfo.kernelVersion }}<br/>
+                    <b>Runtime version:</b> {{ node.status.nodeInfo.containerRuntimeVersion }}<br/>
+                  </p>
+                  <h3>Allocation capacity</h3>
+                  <v-divider></v-divider><br/>
+                  <p>
+                    <b>VM: </b>{{ node.status.allocatable.cpu }} CPU // {{ getHumanBytes(node.status.allocatable.memory.replace('Ki', '') * 1000) }} RAM<br/>
+                    <b>Storage:</b> {{ getHumanBytes(node.status.allocatable['ephemeral-storage']) }}<br/>
+                    <b>Pods:</b> {{ node.status.allocatable.pods }}<br/>
+                  </p>
                 </v-card-text>
               </v-card>
             </v-flex>
