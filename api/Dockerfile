@@ -5,9 +5,9 @@ RUN go get k8s.io/api/core/v1 && \
     go get k8s.io/client-go/rest && \
     go get k8s.io/client-go/tools/clientcmd && \
     go get k8s.io/apimachinery/pkg/apis/meta/v1 && \
-    # go get github.com/dgrijalva/jwt-go && \
+    go get github.com/dgrijalva/jwt-go && \
     go get github.com/labstack/echo && \
-    # go get github.com/googleapis/gnostic/OpenAPIv2 && \
+    go get github.com/googleapis/gnostic/OpenAPIv2 && \
     go get github.com/golang/protobuf/proto
 
 WORKDIR /gopath/src/app
