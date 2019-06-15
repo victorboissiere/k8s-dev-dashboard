@@ -1,0 +1,6 @@
+.idea
+*.swo
+*.swp
+build
+gin-bin
+k8s-image-tracker
