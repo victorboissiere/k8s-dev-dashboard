@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <Request path="namespaces/applications">
+    <request path="namespaces/applications">
       <template v-slot:default="namespaces">
         <div v-if="namespaces.data">
 
@@ -8,7 +8,7 @@
             <v-flex xs12 sm12>
               <v-card>
                 <v-toolbar color="indigo" dark>
-                  <v-toolbar-title>Applications namespaces</v-toolbar-title>
+                  <v-toolbar-title>applications namespaces</v-toolbar-title>
                   <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-list>
@@ -27,14 +27,14 @@
           </v-layout>
         </div>
       </template>
-    </Request>
+    </request>
   </div>
 </template>
 
 <script>
-import Request from '../utils/Request';
+import Request from '../utils/Request.vue';
+
 export default {
   components: { Request },
 };
 </script>
-

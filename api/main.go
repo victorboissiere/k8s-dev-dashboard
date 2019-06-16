@@ -19,6 +19,7 @@ func main() {
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPatch},
 	}))
 
+	e.GET("/v1/tracker", dashboard.GetTracker)
 	e.GET("/v1/namespaces", dashboard.GetNamespaces)
 	e.GET("/v1/namespaces/applications", dashboard.GetApplicationsNamespaces)
 	e.GET("/v1/namespaces/:namespace/deployments", dashboard.GetDeployments)

@@ -2,9 +2,18 @@ package dashboard
 
 import (
 	"../api"
+	"../tracker"
 	"github.com/labstack/echo"
 	"net/http"
 )
+
+func init() {
+	go tracker.Setup(getApplicationsNamespaces())
+}
+
+func GetTracker(c echo.Context) error {
+	return c.JSON(http.StatusOK, tracker.GetTracker())
+}
 
 func GetNamespaces(c echo.Context) error {
 	return c.JSON(http.StatusOK, api.GetNamespaces())

@@ -25,9 +25,10 @@ spec:
       labels:
         app: k8s-dev-dashboard
     spec:
+      serviceAccountName: k8s-dev-dashboard
       containers:
       - name: api
-        image: gitcommit/k8s-dev-dashboard-api:v0.0.1
+        image: gitcommit/k8s-dev-dashboard-api:v0.0.2
         env:
          - name: APPLICATION_NAMESPACES
            value: integration,validation,preproduction,production
@@ -47,14 +48,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: web-dashboard
+            port: api
           initialDelaySeconds: 5
           periodSeconds: 30
         ports:
         - name: api
           containerPort: 3000
       - name: front
-        image: gitcommit/k8s-dev-dashboard-front:v0.0.1
+        image: gitcommit/k8s-dev-dashboard-front:v0.0.3
         resources:
           limits:
             memory: 50M

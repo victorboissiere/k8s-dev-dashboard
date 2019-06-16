@@ -50,7 +50,7 @@ export default {
       this.isDialogLoading = true;
       request.make('patch', `namespaces/${this.namespace}/deployments/${this.deployment}/arbitrary-rolling-update`).then(() => {
         setTimeout(() => {
-          this.refresh();
+          this.$emit('onPatched');
           this.isDialogLoading = false;
         }, 1000);
       }).catch((error) => {

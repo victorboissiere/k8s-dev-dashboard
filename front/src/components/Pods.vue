@@ -9,6 +9,7 @@
         <ArbitraryRollingUpdate
           ref="arbitraryRollingUpdate"
           :namespace="namespace"
+          @onPatched="onPatched"
           :deployment="deployment"
         />
         <PodEvents ref="events" :namespace="namespace" :deployment="deployment"/>
@@ -68,6 +69,9 @@ export default {
     deployment: { type: String },
   },
   methods: {
+    onPatched() {
+      this.refresh();
+    },
     refresh() {
       this.$refs.request.refresh();
     },

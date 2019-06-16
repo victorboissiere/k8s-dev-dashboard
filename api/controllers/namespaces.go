@@ -43,4 +43,3 @@ func getApplicationsNamespaces() []string {
 func isNamespaceAuthorizedForArbitraryRollingUpdate(namespace string) bool {
 	return isNamespaceInEnv(namespace, "ARBITRARY_ROLLING_UPDATE_NAMESPACES", "")
 }
-
