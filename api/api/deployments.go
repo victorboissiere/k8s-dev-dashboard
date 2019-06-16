@@ -74,7 +74,7 @@ func getDeploymentStatus(deployment v12.Deployment) DeploymentStatus {
 
 func GetRawDeployment(namespace string, deployment string)  *v12.Deployment {
 	result := &v12.Deployment{}
-	err := client.ExtensionsV1beta1().RESTClient().Get().
+	err := client.AppsV1().RESTClient().Get().
 		Namespace(namespace).
 		Resource("deployments").
 		Name(deployment).

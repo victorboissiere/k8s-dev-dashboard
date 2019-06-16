@@ -1,9 +1,9 @@
 package dashboard
 
 import (
-	"net/http"
-	"github.com/labstack/echo"
 	"../api"
+	"github.com/labstack/echo"
+	"net/http"
 )
 
 func GetNamespaces(c echo.Context) error {
@@ -34,7 +34,7 @@ func GetNodes(c echo.Context) error {
 
 func ForceArbitraryRollingUpdate(c echo.Context) error {
 	namespace := c.Param("namespace")
-	if isNamespaceAuthorizedForArbitraryRollingUpdate(namespace) {
+	if !isNamespaceAuthorizedForArbitraryRollingUpdate(namespace) {
 		return c.JSON(http.StatusForbidden, "")
 	}
 
