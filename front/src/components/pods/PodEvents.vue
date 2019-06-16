@@ -11,7 +11,11 @@
           </v-btn>
         </v-card-title>
         <v-card-text>
-          <Request :path="`namespaces/${namespace}/deployments/${deployment}/events`" ref="request">
+          <Request
+            :path="`namespaces/${namespace}/deployments/${deployment}/events`"
+            ref="request"
+            :autoload="false"
+          >
             <template v-slot:default="events">
               <div v-if="events.data">
                 <div v-if="events.data.length === 0">

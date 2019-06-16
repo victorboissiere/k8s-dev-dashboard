@@ -16,6 +16,7 @@ export default {
   components: { ErrorMessage },
   props: {
     path: { type: String },
+    autoload: { type: Boolean, default: () => true },
   },
   methods: {
     load() {
@@ -44,7 +45,9 @@ export default {
     },
   },
   mounted() {
-    this.load();
+    if (this.autoload) {
+      this.load();
+    }
   },
   data() {
     return {
