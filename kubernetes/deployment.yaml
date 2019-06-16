@@ -75,4 +75,4 @@ spec:
           periodSeconds: 30
         ports:
         - name: http
-          containerPort: 3000
+          containerPort: 80

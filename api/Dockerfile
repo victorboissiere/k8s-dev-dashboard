@@ -8,7 +8,8 @@ RUN go get k8s.io/api/core/v1 && \
     go get github.com/dgrijalva/jwt-go && \
     go get github.com/labstack/echo && \
     go get github.com/googleapis/gnostic/OpenAPIv2 && \
-    go get github.com/golang/protobuf/proto
+    go get github.com/golang/protobuf/proto && \
+    go get github.com/jasonlvhit/gocron
 
 WORKDIR /gopath/src/app
 COPY . /gopath/src/app/
