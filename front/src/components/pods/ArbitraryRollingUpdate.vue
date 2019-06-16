@@ -15,7 +15,7 @@
         <v-card-title class="headline">Arbitrary rolling-update</v-card-title>
         <v-card-text>
           This action will try to match the parent deployment specification and trigger a
-          rolling-update by adding the label <pre>LAST_FORCED_ROLLING_UPDATE</pre>
+          rolling-update by adding the label <code>LAST_FORCED_ROLLING_UPDATE</code>
           <br/><br/>
           Kubernetes will then launch new pod(s) with a rolling-update strategy.
           It can be considered as a way to restart without any down time.
@@ -35,11 +35,15 @@
 </template>
 
 <script>
-import request from '../request';
-import ErrorMessage from './utils/ErrorMessage.vue';
+import request from '../../request/index';
+import ErrorMessage from '../utils/ErrorMessage.vue';
 
 export default {
   components: { ErrorMessage },
+  props: {
+    namespace: { type: String },
+    deployment: { type: String },
+  },
   methods: {
     arbitraryRollingUpdate() {
       this.dialog = false;

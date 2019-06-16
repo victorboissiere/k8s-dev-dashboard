@@ -1,18 +1,26 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <ArbitraryRollingUpdate ref="arbitraryRollingUpdate"/>
     <Request
       :path="`namespaces/${namespace}/deployments/${deployment}/pods`"
       ref="request"
     >
       <template v-slot:default="pods">
         <div v-if="pods.data">
+        <ArbitraryRollingUpdate
+          ref="arbitraryRollingUpdate"
+          :namespace="namespace"
+          :deployment="deployment"
+        />
+        <PodEvents ref="events" :namespace="namespace" :deployment="deployment"/>
         <PodWarning :pods="pods.data"/>
         <v-toolbar color="indigo" dark>
           <v-toolbar-title>
-            Pods for deployment {{ deployment }} ({{ pods.data.length }})
+            {{ namespace}} | Pods for deployment {{ deployment }} ({{ pods.data.length }})
           </v-toolbar-title>
           <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon @click="events">bug_report</v-icon>
+          </v-btn>
           <v-btn icon>
             <v-icon @click="arbitraryRollingUpdate">redo</v-icon>
           </v-btn>
@@ -40,13 +48,15 @@
 
 <script>
 import Request from './utils/Request.vue';
-import ArbitraryRollingUpdate from './ArbitraryRollingUpdate.vue';
+import ArbitraryRollingUpdate from './pods/ArbitraryRollingUpdate.vue';
 import PodWarning from './pods/PodWarning.vue';
 import PodStatus from './pods/PodStatus.vue';
 import PodList from './pods/PodList.vue';
+import PodEvents from './pods/PodEvents';
 
 export default {
   components: {
+    PodEvents,
     PodList,
     PodStatus,
     PodWarning,
@@ -60,6 +70,9 @@ export default {
   methods: {
     refresh() {
       this.$refs.request.refresh();
+    },
+    events() {
+      this.$refs.events.show();
     },
     arbitraryRollingUpdate() {
       this.$refs.arbitraryRollingUpdate.show();

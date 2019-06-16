@@ -1,6 +1,13 @@
 <template>
   <div class="about">
-    <h1>New dashboard</h1>
-    <p>Work in progress</p>
+    <NamespaceApplicationList/>
   </div>
 </template>
+<script>
+import NamespaceApplicationList from '../components/namespaces/NamespaceApplicationList.vue';
+
+export default {
+  components: { NamespaceApplicationList },
+};
+</script>
+

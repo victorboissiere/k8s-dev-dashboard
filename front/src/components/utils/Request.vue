@@ -4,13 +4,16 @@
       <v-progress-linear :indeterminate="true" :class="`position: absolute;`"></v-progress-linear>
     </p>
     <slot v-else :data="data"></slot>
+    <ErrorMessage :message="errorMessage"/>
   </div>
 </template>
 
 <script>
 import request from '../../request';
+import ErrorMessage from './ErrorMessage.vue';
 
 export default {
+  components: { ErrorMessage },
   props: {
     path: { type: String },
   },
@@ -23,11 +26,11 @@ export default {
           this.$emit('onDataReceived', response.data);
         } else {
           this.isLoading = false;
-          console.error('Error', response); // TODO: Implement front error
+          this.errorMessage = 'Something went wrong';
         }
-      }).catch((error) => {
+      }).catch(() => {
         this.isLoading = false;
-        console.error('Error', error); // TODO: Implement front error
+        this.errorMessage = 'Something went wrong';
       });
     },
     refresh() {
@@ -47,6 +50,7 @@ export default {
     return {
       isLoading: true,
       data: null,
+      errorMessage: '',
     };
   },
 };

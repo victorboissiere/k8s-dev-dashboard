@@ -2,17 +2,17 @@ package api
 
 import (
 	"k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/fields"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/kubernetes/scheme"
 )
 
 type Event struct {
-	Name          string
-	Reason        string
-	Message       string
-	Count         int32
-	LastTimestamp metav1.Time
+	Name          string      `json:"name"`
+	Reason        string      `json:"reason"`
+	Message       string      `json:"message"`
+	Count         int32       `json:"count"`
+	LastTimestamp metav1.Time `json:"lastTimestamp"`
 }
 
 type EventList []Event
@@ -36,17 +36,13 @@ func GetEvents(namespace string, deploymentName string) EventList {
 	for i := 0; i < len(result.Items); i++ {
 		event := result.Items[i]
 		eventList = append(eventList, Event{
-			Name: event.ObjectMeta.Name,
-			Reason: event.Reason,
-			Message: event.Message,
+			Name:          event.ObjectMeta.Name,
+			Reason:        event.Reason,
+			Message:       event.Message,
 			LastTimestamp: event.LastTimestamp,
-			Count: event.Count,
+			Count:         event.Count,
 		})
 	}
 
 	return eventList
 }
-
-
-
-
