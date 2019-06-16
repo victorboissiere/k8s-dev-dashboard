@@ -1,29 +1,10 @@
-# my-app
+# Developer dashboard for Kubernetes
 
-## Project setup
-```
-yarn install
-```
+## API
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+Developers environment variables:
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+- `APPLICATION_NAMESPACES`: Developer application namespaces shown on the homepage. Default `integration,validation,staging,qualification,preproduction,production"`.
+- `ARBITRARY_ROLLING_UPDATE_NAMESPACES`: Enable restart (abitrary rolling-update action) for namespaces. Default `""`
 
-### Run your tests
-```
-yarn run test
-```
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

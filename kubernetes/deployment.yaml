@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: gitcommit/k8s-dev-dashboard-api:latest
+        image: gitcommit/k8s-dev-dashboard-api:v0.0.1
         env:
          - name: APPLICATION_NAMESPACES
            value: integration,validation,preproduction,production
@@ -54,7 +54,7 @@ spec:
         - name: api
           containerPort: 3000
       - name: front
-        image: gitcommit/k8s-dev-dashboard-front:latest
+        image: gitcommit/k8s-dev-dashboard-front:v0.0.1
         resources:
           limits:
             memory: 50M

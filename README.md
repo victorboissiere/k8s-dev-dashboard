@@ -1,11 +1,7 @@
 # Developer dashboard for Kubernetes
 
-## API
+Work in progress
 
-Developers environment variables:
+## Kubernetes
 
-- `APPLICATION_NAMESPACES`: Developer application namespaces shown on the homepage. Default `integration,validation,staging,qualification,preproduction,production"`.
-- `ARBITRARY_ROLLING_UPDATE_NAMESPACES`: Enable restart (abitrary rolling-update action) for namespaces. Default `""`
-
-## Front
-
+Documentation coming soon
