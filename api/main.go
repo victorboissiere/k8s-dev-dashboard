@@ -19,11 +19,13 @@ func main() {
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPatch},
 	}))
 
-	e.GET("/v1/namespaces", dashboard.Namespaces)
-	e.GET("/v1/namespaces/:namespace/deployments", dashboard.Deployments)
-	e.GET("/v1/namespaces/:namespace/deployment/:deployment/pods", dashboard.Pods)
-	e.PATCH("/v1/namespaces/:namespace/deployment/:deployment/arbitrary-rolling-update", dashboard.ArbitraryRollingUpdate)
-	e.GET("/v1/nodes", dashboard.Nodes)
+	e.GET("/v1/namespaces", dashboard.GetNamespaces)
+	e.GET("/v1/namespaces/applications", dashboard.GetApplicationsNamespaces)
+	e.GET("/v1/namespaces/:namespace/deployments", dashboard.GetDeployments)
+	e.GET("/v1/namespaces/:namespace/deployments/:deployment/pods", dashboard.GetPods)
+	e.GET("/v1/namespaces/:namespace/deployments/:deployment/events", dashboard.GetEvents)
+	e.PATCH("/v1/namespaces/:namespace/deployments/:deployment/arbitrary-rolling-update", dashboard.ForceArbitraryRollingUpdate)
+	e.GET("/v1/nodes", dashboard.GetNodes)
 
 	e.GET("/health", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Healthy!")

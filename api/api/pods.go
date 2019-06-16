@@ -2,14 +2,14 @@ package api
 
 import (
 	"k8s.io/api/core/v1"
-	v12 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/apimachinery/pkg/labels"
 )
 
 
 type PodStatus struct {
-	StartTime         *v12.Time   `json:"startTime"`
+	StartTime         *metav1.Time   `json:"startTime"`
 	Phase             v1.PodPhase `json:"phase"`
 	Reason            string `json:"reason"`
 	Message           string `json:"message"`
@@ -27,7 +27,7 @@ type PodList = []Pod
 
 func GetPods(namespace string, matchLabels map[string]string) PodList {
 	result := &v1.PodList{}
-	options := &v12.ListOptions{ LabelSelector: labels.FormatLabels(matchLabels) }
+	options := &metav1.ListOptions{ LabelSelector: labels.FormatLabels(matchLabels) }
 
 	err := client.CoreV1().RESTClient().Get().
 		Namespace(namespace).
