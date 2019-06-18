@@ -18,7 +18,7 @@ type DeploymentTracker struct {
 }
 
 func getDeployments(namespaces []string) []DeploymentTracker {
-	var deploymentTrackers []DeploymentTracker
+	var deploymentTrackers = make([]DeploymentTracker, 0)
 	for i := 0; i < len(namespaces); i++ {
 		deployments := api.GetDeployments(namespaces[i]);
 		for j := 0; j < len(deployments); j++ {

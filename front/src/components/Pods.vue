@@ -19,19 +19,30 @@
             {{ namespace}} | Pods for deployment {{ deployment }} ({{ pods.data.length }})
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon @click="events">bug_report</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon @click="arbitraryRollingUpdate">redo</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon @click="refresh">refresh</v-icon>
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn icon>
+                <v-icon @click="arbitraryRollingUpdate" v-on="on">rotate_90_degrees_ccw</v-icon>
+              </v-btn>
+            </template>
+            <span>Rolling update</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn icon><v-icon @click="events" v-on="on">notifications</v-icon></v-btn>
+            </template>
+            <span>Events</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn icon><v-icon @click="refresh" v-on="on">refresh</v-icon></v-btn>
+            </template>
+            <span>Refresh</span>
+          </v-tooltip>
         </v-toolbar>
         <v-card v-for="pod in pods.data">
           <v-card-title>
-            <v-icon large left>navigate_next</v-icon>
+            <v-icon large left>folder_open</v-icon>
             <span class="title font-weight-light">{{ pod.name }}</span>
             <v-spacer></v-spacer>
             <PodStatus :pod="pod"/>
